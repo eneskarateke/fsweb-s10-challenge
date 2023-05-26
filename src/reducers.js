@@ -1,4 +1,4 @@
-import { NOT_EKLE, NOT_SIL } from "./actions";
+import { NOT_EKLE, NOT_SIL, NOT_RESETLE } from "./actions";
 import { nanoid } from "nanoid";
 
 let nano = nanoid(5);
@@ -70,6 +70,17 @@ export function reducer(state = initialState, action) {
         ...state,
         notlar: filteredNotes,
       };
+
+    case NOT_RESETLE:
+      localStorageStateYaz(s10chLocalStorageKey, {
+        ...state,
+        notlar: baslangicDegerleri.notlar,
+      });
+      return {
+        ...state,
+        notlar: baslangicDegerleri.notlar,
+      };
+
     default:
       return state;
   }

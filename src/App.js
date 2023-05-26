@@ -4,7 +4,17 @@ import PostForm from "./components/PostForm";
 import PostList from "./components/PostList";
 import Img from "./assets/gratitude.jpg";
 
+import { notResetle } from "./actions";
+
+import { useDispatch } from "react-redux";
+
 export default function App() {
+  const dispatch = useDispatch();
+
+  const handleReset = () => {
+    dispatch(notResetle());
+  };
+
   return (
     <div>
       <div className="bg-white shadow mb-8">
@@ -61,7 +71,13 @@ export default function App() {
         </Route>
 
         <Route path="/notlar">
-          <div className="max-w-md mx-auto px-4 pb-8">
+          <div className="max-w-md flex flex-col mx-auto px-4 pb-8">
+            <button
+              onClick={() => handleReset()}
+              className="bg-orange-500 mb-4 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded"
+            >
+              Notları temizle
+            </button>
             <PostList />
           </div>
         </Route>
