@@ -8,21 +8,12 @@ import { useDispatch } from "react-redux";
 
 import { notEkleAPI } from "../actions";
 
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-
 export default function PostForm() {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ mode: "onChange" });
-
-  const showToastMessage = () => {
-    toast.success("Notlarınız listenize eklenecek!", {
-      position: toast.POSITION.TOP_RIGHT,
-    });
-  };
 
   const dispatch = useDispatch();
 
@@ -37,14 +28,7 @@ export default function PostForm() {
         .join("|"),
     };
 
-    // burada ilgili eylemi dispatch edin
-    // toast mesajı gösterin
-    // sonra aşağıdaki satırı aktifleştirin
-    // setTimeout(() => history.push("/notlar"), 2000);
-
     dispatch(notEkleAPI(yeniNot));
-
-    showToastMessage();
 
     setTimeout(() => history.push("/notlar"), 2000);
   }
@@ -100,7 +84,6 @@ export default function PostForm() {
           Ekle
         </button>
       </form>
-      <ToastContainer autoClose={2000} />
     </div>
   );
 }
