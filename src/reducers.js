@@ -1,5 +1,4 @@
 import { NOT_EKLE, NOT_SIL } from "./actions";
-
 import { nanoid } from "nanoid";
 
 let nano = nanoid(5);
@@ -26,16 +25,18 @@ function localStorageStateOku(key) {
 }
 
 function baslangicNotlariniGetir(key) {
-  const eskiNotlar = localStorage.getItem(key);
+  const eskiNotlar = localStorageStateOku(key);
 
   if (eskiNotlar) {
-    return localStorageStateOku(key);
+    return eskiNotlar;
   } else {
     return baslangicDegerleri;
   }
 }
 
-export function reducer(state = baslangicDegerleri, action) {
+const initialState = baslangicNotlariniGetir(s10chLocalStorageKey);
+
+export function reducer(state = initialState, action) {
   switch (action.type) {
     case NOT_EKLE:
       const not = action.payload;
@@ -44,7 +45,11 @@ export function reducer(state = baslangicDegerleri, action) {
         date: not.date,
         body: not.body,
       };
-      const updatedNotes = [...state.notlar, newNote];
+      const updatedNotes = [newNote, ...state.notlar];
+      localStorageStateYaz(s10chLocalStorageKey, {
+        ...state,
+        notlar: updatedNotes,
+      });
 
       return {
         ...state,
@@ -52,9 +57,18 @@ export function reducer(state = baslangicDegerleri, action) {
       };
 
     case NOT_SIL:
+      const deletedNoteId = action.payload;
+      const filteredNotes = state.notlar.filter(
+        (item) => item.id !== deletedNoteId
+      );
+      localStorageStateYaz(s10chLocalStorageKey, {
+        ...state,
+        notlar: filteredNotes,
+      });
+
       return {
         ...state,
-        notlar: state.notlar.filter((item) => item.id !== action.payload),
+        notlar: filteredNotes,
       };
     default:
       return state;
