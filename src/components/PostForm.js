@@ -37,8 +37,6 @@ export default function PostForm() {
         .join("|"),
     };
 
-    console.log("yeniNot.body", yeniNot.body);
-
     // burada ilgili eylemi dispatch edin
     // toast mesajı gösterin
     // sonra aşağıdaki satırı aktifleştirin

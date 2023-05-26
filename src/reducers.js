@@ -52,7 +52,10 @@ export function reducer(state = baslangicDegerleri, action) {
       };
 
     case NOT_SIL:
-      return state;
+      return {
+        ...state,
+        notlar: state.notlar.filter((item) => item.id !== action.payload),
+      };
     default:
       return state;
   }

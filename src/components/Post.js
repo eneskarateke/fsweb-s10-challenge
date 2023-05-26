@@ -6,11 +6,11 @@ import { notSilAPI } from "../actions";
 
 export default function Post({ item }) {
   const dispatch = useDispatch();
-  function handleSil() {
+  function handleSil(id) {
     // burada ilgili eylemi dispatch edin
     // sonra toast mesajı gösterin
 
-    dispatch(notSilAPI(item.id));
+    dispatch(notSilAPI(id));
   }
 
   return (
@@ -30,7 +30,7 @@ export default function Post({ item }) {
 
       <button
         className="text-xs text-amber-600 mt-4 underline"
-        onClick={handleSil}
+        onClick={() => handleSil(item.id)}
       >
         Bu notu sil
       </button>
