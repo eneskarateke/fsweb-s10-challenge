@@ -19,7 +19,7 @@ export default function PostForm() {
   } = useForm({ mode: "onChange" });
 
   const showToastMessage = () => {
-    toast.success("Success Notification !", {
+    toast.success("Notlarınız listenize eklenecek!", {
       position: toast.POSITION.TOP_RIGHT,
     });
   };

@@ -4,13 +4,22 @@ import { tr } from "date-fns/locale";
 import { useDispatch } from "react-redux";
 import { notSilAPI } from "../actions";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 export default function Post({ item }) {
   const dispatch = useDispatch();
+  const showToastMessage = () => {
+    toast.success("Notlarınız listenizden çıkarılacak!", {
+      position: toast.POSITION.TOP_RIGHT,
+    });
+  };
   function handleSil(id) {
     // burada ilgili eylemi dispatch edin
     // sonra toast mesajı gösterin
 
     dispatch(notSilAPI(id));
+    showToastMessage();
   }
 
   return (
@@ -34,6 +43,7 @@ export default function Post({ item }) {
       >
         Bu notu sil
       </button>
+      <ToastContainer autoClose={2000} />
     </div>
   );
 }
