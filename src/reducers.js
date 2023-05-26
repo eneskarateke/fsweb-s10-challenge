@@ -1,3 +1,10 @@
+import { NOT_EKLE, NOT_SIL } from "./actions";
+
+import { nanoid } from "nanoid";
+
+let nano = nanoid(5);
+console.log(nano);
+
 const s10chLocalStorageKey = "s10ch";
 
 const baslangicDegerleri = {
@@ -24,6 +31,29 @@ function baslangicNotlariniGetir(key) {
   if (eskiNotlar) {
     return localStorageStateOku(key);
   } else {
-    return baslangicDegerleri
+    return baslangicDegerleri;
+  }
+}
+
+export function reducer(state = baslangicDegerleri, action) {
+  switch (action.type) {
+    case NOT_EKLE:
+      const not = action.payload;
+      const newNote = {
+        id: not.id,
+        date: not.date,
+        body: not.body,
+      };
+      const updatedNotes = [...state.notlar, newNote];
+
+      return {
+        ...state,
+        notlar: updatedNotes,
+      };
+
+    case NOT_SIL:
+      return state;
+    default:
+      return state;
   }
 }

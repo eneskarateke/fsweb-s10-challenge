@@ -1,12 +1,16 @@
 import React from "react";
 import { formatDistanceToNow } from "date-fns";
 import { tr } from "date-fns/locale";
+import { useDispatch } from "react-redux";
+import { notSilAPI } from "../actions";
 
 export default function Post({ item }) {
-
+  const dispatch = useDispatch();
   function handleSil() {
     // burada ilgili eylemi dispatch edin
     // sonra toast mesajı gösterin
+
+    dispatch(notSilAPI(item.id));
   }
 
   return (
@@ -18,13 +22,16 @@ export default function Post({ item }) {
         })}
       </h1>
 
-      {item.body.split("|").map((li) => (
+      {item.body?.split("|").map((li) => (
         <p className="mt-2" key={li}>
           - {li}
         </p>
       ))}
 
-      <button className="text-xs text-amber-600 mt-4 underline" onClick={handleSil}>
+      <button
+        className="text-xs text-amber-600 mt-4 underline"
+        onClick={handleSil}
+      >
         Bu notu sil
       </button>
     </div>
